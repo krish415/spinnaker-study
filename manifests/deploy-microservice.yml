@@ -2,26 +2,26 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
     labels:
-        app: mild-temper-microservice
+        app: bake-charms-microservice
         stack: frontend
         source: demo
-    name: mild-temper-microservice
+    name: bake-charms-microservice
     namespace: microservices
 spec:
     replicas: 3
     selector:
         matchLabels:
-            run: mild-temper-microservice
+            run: bake-charms-microservice
     template:
         metadata:
             labels:
-                app: mild-temper-microservice
-                run: mild-temper-microservice
+                app: bake-charms-microservice
+                run: bake-charms-microservice
                 source: demo
         spec:
             containers:
-                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/mild-temper-microservice
-                    name: mild-temper-microservice
+                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/bake-charms-microservice
+                    name: bake-charms-microservice
                     ports:
                         -   name: web
                             containerPort: 8080
@@ -31,13 +31,13 @@ kind: Service
 apiVersion: v1
 metadata:
     labels:
-        app: mild-temper-microservice-service
-    name: mild-temper-microservice-service
+        app: bake-charms-microservice-service
+    name: bake-charms-microservice-service
     namespace: microservices
 spec:
     selector:
         source: demo
-        app: mild-temper-microservice
+        app: bake-charms-microservice
     ports:
         -   name: web
             protocol: TCP
@@ -51,15 +51,15 @@ kind: Ingress
 metadata:
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$2
-    name: mild-temper-ingress
+    name: bake-charms-ingress
     namespace: microservices
 spec:
     rules:
         -   http:
                 paths:
-                    -   path: /mild-temper(/|$)(.*)
+                    -   path: /bake-charms(/|$)(.*)
                         backend:
-                            serviceName: mild-temper-microservice-service
+                            serviceName: bake-charms-microservice-service
                             servicePort: 30201
 
 
